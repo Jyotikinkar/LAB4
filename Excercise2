@@ -1,0 +1,133 @@
+//Employee.java
+package com.cg.eis.bean;
+
+public class Employee {
+	
+	private String empid;
+	private String name;
+	private double sal;
+	private String desig;
+	private String scheme;
+	public String getEmpid() {
+		return empid;
+	}
+	public void setEmpid(String empid) {
+		this.empid = empid;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public double getSal() {
+		return sal;
+	}
+	public void setSal(double sal) {
+		this.sal = sal;
+	}
+	public String getDesig() {
+		return desig;
+	}
+	public void setDesig(String desig) {
+		this.desig = desig;
+	}
+	public String getScheme() {
+		return scheme;
+	}
+	public void setScheme(String scheme) {
+		this.scheme = scheme;
+	}
+	
+}
+
+
+//Service.java
+
+package com.cg.eis.service;
+
+import com.cg.eis.bean.*;
+interface EmployeeServiceInterface {
+	
+	void insurance(double sal);
+	void input(String empid,String name ,double sal,String desig);
+	void display();
+}
+
+public class Service implements EmployeeServiceInterface {
+	
+	Employee emp=new Employee();
+	
+	public void input(String empid,String name,double sal,String desig) {
+		emp.setEmpid(empid);
+		emp.setName(name);
+		emp.setSal(sal);
+		emp.setDesig(desig);
+	}
+	
+	public void display() {
+		System.out.println("Employee_ID--->"+emp.getEmpid());
+		System.out.println("Name--->"+emp.getName());
+		System.out.println("Salary--->"+emp.getSal());
+		System.out.println("Designation--->"+emp.getDesig());
+	}
+	
+	public void insurance(double sal) {
+		
+		int bonus;
+		sal=emp.getSal();
+		if (sal>=10000 && sal<20000 ) {
+			System.out.println("Insurance--->Basic");
+			bonus=10000;
+			sal+=bonus;
+			System.out.println("Salary with bonus--->"+sal);}
+		else if (sal>=20000 && sal<30000 ) {
+			System.out.println("Insurance--->Standard");
+			bonus=20000;
+			sal+=bonus;
+			System.out.println("Salary with bonus--->"+sal);}
+		else if (sal>=30000 && sal<40000 ) {
+			System.out.println("Insurance--->Premium");
+			bonus=30000;
+			sal+=bonus;
+			System.out.println("Salary with bonus--->"+sal);}
+		else if(sal<10000) {
+			System.out.println("Sorry! No bonus for you!");
+		}
+	}
+
+}
+
+//DisplayDetails .java
+
+package com.cg.eis.pl;
+
+import com.cg.eis.service.Service;
+
+import java.util.Scanner;
+
+public class DisplayDetails {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Please enter Employee_ID");
+		String eid = sc.next();
+		System.out.println("Please enter Employee Name");
+		String ename = sc.next();
+		System.out.println("Please enter Employee Designation");
+		String edesig = sc.next();
+		System.out.println("Please enter Employee Salary");
+		double esal = sc.nextDouble();
+		sc.close();
+		
+		Service s=new Service();
+		s.input(eid,ename,esal,edesig);
+		s.display();
+		s.insurance(esal);
+				
+
+	}
+
+}
